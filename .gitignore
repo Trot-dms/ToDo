@@ -1,4 +1,4 @@
 .idea/
 ToDo.iml
 target/
-hibernate.cfg.xml
+_hibernate.cfg.xml

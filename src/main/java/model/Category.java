@@ -17,13 +17,13 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    private List<Todo> todoId;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
+    private List<Todo> todo;
 
 
-    public Category(String name, List<Todo> todoId) {
+    public Category(String name, List<Todo> todo) {
         this.name = name;
-        this.todoId = todoId;
+        this.todo = todo;
     }
 
     public Category() {
@@ -45,40 +45,12 @@ public class Category {
         this.name = name;
     }
 
-    public List<Todo> getTodoId() {
-        return todoId;
+    public List<Todo> getTodo() {
+        return todo;
     }
 
-    public void setTodoId(List<Todo> todoId) {
-        this.todoId = todoId;
+    public void setTodo(List<Todo> todoId) {
+        this.todo = todoId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Category category = (Category) o;
-
-        if (getCatId() != category.getCatId()) return false;
-        if (getName() != null ? !getName().equals(category.getName()) : category.getName() != null) return false;
-        return getTodoId() != null ? getTodoId().equals(category.getTodoId()) : category.getTodoId() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getCatId();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getTodoId() != null ? getTodoId().hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "catId=" + catId +
-                ", name='" + name + '\'' +
-                ", todoId=" + todoId +
-                '}';
-    }
 }

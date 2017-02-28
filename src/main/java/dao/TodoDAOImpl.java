@@ -4,6 +4,7 @@ import enums.Crud;
 import model.Todo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,9 @@ public class TodoDAOImpl implements TodoDAO {
     @Override
     public List<Todo> findAll() {
         try (Session session = sessionFactory.openSession()) {
-            return session.createCriteria(Todo.class).list();
+            Query query = session.createQuery("from Todo");
+            List list = query.getResultList();
+            return list;
         }
     }
 }

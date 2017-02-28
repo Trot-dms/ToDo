@@ -20,17 +20,17 @@ public class Todo {
     private String title;
 
     @Column(name = "desc")
-    private String descriprion;
+    private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "catId")
     private Category category;
 
-    public Todo(int id, boolean compleated, String title, String descriprion, Category category) {
+    public Todo(int id, boolean compleated, String title, String description, Category category) {
         this.id = id;
         this.compleated = compleated;
         this.title = title;
-        this.descriprion = descriprion;
+        this.description = description;
         this.category = category;
     }
 
@@ -61,12 +61,12 @@ public class Todo {
         this.title = title;
     }
 
-    public String getDescriprion() {
-        return descriprion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriprion(String descriprion) {
-        this.descriprion = descriprion;
+    public void setDescription(String descriprion) {
+        this.description = descriprion;
     }
 
     public Category getCategory() {
@@ -77,39 +77,4 @@ public class Todo {
         this.category = category;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Todo todo = (Todo) o;
-
-        if (getId() != todo.getId()) return false;
-        if (isCompleated() != todo.isCompleated()) return false;
-        if (getTitle() != null ? !getTitle().equals(todo.getTitle()) : todo.getTitle() != null) return false;
-        if (getDescriprion() != null ? !getDescriprion().equals(todo.getDescriprion()) : todo.getDescriprion() != null)
-            return false;
-        return getCategory() != null ? getCategory().equals(todo.getCategory()) : todo.getCategory() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId();
-        result = 31 * result + (isCompleated() ? 1 : 0);
-        result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
-        result = 31 * result + (getDescriprion() != null ? getDescriprion().hashCode() : 0);
-        result = 31 * result + (getCategory() != null ? getCategory().hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Todo{" +
-                "id=" + id +
-                ", compleated=" + compleated +
-                ", title='" + title + '\'' +
-                ", descriprion='" + descriprion + '\'' +
-                ", category=" + category +
-                '}';
-    }
 }

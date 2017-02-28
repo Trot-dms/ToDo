@@ -3,6 +3,7 @@ package dao;
 import model.Category;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,20 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Override
     public List<Category> findAll() {
         try (Session session = sessionFactory.openSession()) {
-            return session.createCriteria(Category.class).list();
+            Query query = session.createQuery("from Category");
+            List list = query.getResultList();
+//            list.forEach(System.out::println);
+            return list;
+        }
+    }
+
+    @Override
+    public Optional<Category> findByName(String name) {
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("from Category where name = :name");
+            query.setParameter("name", name);
+            List list = query.getResultList();
+            return list.stream().findFirst();
         }
     }
 }

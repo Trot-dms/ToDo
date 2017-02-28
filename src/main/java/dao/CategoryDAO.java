@@ -13,4 +13,6 @@ public interface CategoryDAO {
     Optional<Category> findById(int id);
 
     List<Category> findAll();
+
+    Optional<Category> findByName(String name);
 }

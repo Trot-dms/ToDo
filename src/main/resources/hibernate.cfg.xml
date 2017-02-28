@@ -16,10 +16,10 @@
             jdbc:postgresql://localhost:5432/todo
         </property>
         <property name="hibernate.connection.username">
-            admin
+            zzz
         </property>
         <property name="hibernate.connection.password">
-            pass
+            zzz
         </property>
         <property name="connection.autocommit">
             false

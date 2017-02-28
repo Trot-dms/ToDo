@@ -1,3 +1,5 @@
+package service;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -24,7 +26,7 @@ public class SetupDB {
 
     public static void data(SessionFactory sessionFactory) {
         try (Session session = sessionFactory.openSession()) {
-            session.doWork(connection -> SetupDB.data(connection));
+            session.doWork(SetupDB::data);
         }
     }
 }

@@ -37,15 +37,13 @@ public class TodoService {
         TodoService.LOGGER = LOGGER;
     }
 
-    public List<TodoDTO> getAllTodos(Response res) {
-        setJsonResponse(res);
+    public List<TodoDTO> getAllTodos() {
         List<TodoDTO> list = todoDAO.findAll().stream().map(Mapper::todoMapper).collect(Collectors.toList());
         LOGGER.info("Getting all todos..." + list.size() + " items");
         return list;
     }
 
-    public List<CategoryDTO> getAllCategories(Response res) {
-        setJsonResponse(res);
+    public List<CategoryDTO> getAllCategories() {
         List<CategoryDTO> list = categoryDAO.findAll().stream().map(Mapper::categoryMapper).collect(Collectors.toList());
         LOGGER.info("Getting all categories..." + list.size() + " items");
         return list;

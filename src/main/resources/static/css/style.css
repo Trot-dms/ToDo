@@ -1,0 +1,264 @@
+:root {
+  --my-red: #d9534f;
+  --my-white: #f9f9f9;
+  --my-blue: #5bc0de;
+  --my-green: #5cb85c;
+  --my-dark-blue: #428bca;
+}
+
+body {
+	font-size: 1.0em;
+	font-family: Raleway;
+	margin: 0; 
+}
+
+
+#newTaskForm {
+	margin-top: 0;
+}
+
+.long {
+	min-width: 600px;
+}
+
+.medium {
+	min-width: 200px;
+}
+
+
+
+.logo {
+	height: 100px;
+	background-color: #292929;
+  	color: #bbc3c8;
+  	padding-top: 5px;
+  	font-family: 'Lato', sans-serif; 
+  	font-size: 3em;
+  	margin-bottom: 10px;
+}
+
+.logo p {
+	 color: #ffffff; 
+	 font-size: 54px; 
+	 font-weight: 300; 
+	 line-height: 58px; 
+	 margin: 0 0 58px;
+	 width: 80%;
+	 margin-left: auto;
+	 margin-right: auto;
+	 margin-top: 10px;
+}
+
+input[type="button"] {
+	line-height: 2em;
+	min-height: 2em;
+	background-color: #5bc0de;
+	color: #f9f9f9;
+	border: 0;
+	border-radius: 3px;
+	min-width: 80px;
+}
+
+input[type="button"]:hover {
+	background-color: #428bca;
+}
+
+.button {
+  border-radius: 4px;
+  height: 1.7em;
+  background-color: #5bc0de;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 2px;
+  min-width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+select {
+	border: 1px solid #E1DAC6;
+	background-color: transparent;
+  	height: 2.4em;
+  	min-width: 150px;
+}
+
+input[type="text"] {
+	 border: 1px solid #E1DAC6;
+	 background: none;
+	 box-shadow:none;
+	 border-radius: 0px;
+	 line-height: 1.8em;
+	 padding-left: 10px;
+	 border-radius: 5px;
+	   font-size: 16px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}
+
+.errorField {
+	border: 1px solid #d9534f !important;
+}
+
+.info {
+	line-height:1.8em;
+	position: absolute;
+	background-color: #1B98E0;
+	color:#E8F1F2;
+	padding-left: 25px;
+	padding-right: 15px;
+	padding-top: 5px;
+	font-size: 1.2em;
+	width: 98%;
+	left: 0;
+	top:0;
+}
+
+.row {
+	width: 80%; 
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.category-study {
+	border-left: 5px solid #115872;
+}
+
+.category-work {
+		border-left: 5px solid #D81F15;
+}
+
+.category-personal {
+		border-left: 5px solid #FF9605;
+}
+
+
+.checkbox-custom:checked + .checkbox-custom-label:before {
+    background: #1B98E0;
+}
+
+
+.task {
+	background-color: #f9f9f9; 
+	margin-top: 5px;
+	min-width: 20px;
+	line-height: 3em;
+	padding-left: 20px;
+	  cursor: pointer;
+}
+
+.task:hover {
+	background-color: #f0f0f0; 
+}
+
+
+.headline {
+	font-family:Georgia,serif;
+	color:#4E443C;
+	font-variant: small-caps; text-transform: none; font-weight: 100; margin-bottom: 0;
+
+}
+        
+.paraghraph {
+        font-family: "Helvetica Neue", "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+        margin-top: .5em; color: #666;
+}
+
+
+.paraghraph start {
+	   font-family:Georgia,serif;
+        font-weight: bold;
+	text-transform:uppercase;
+	letter-spacing:2px; 
+
+}    
+
+.checkbox-custom, .radio-custom {
+    opacity: 0;
+    position: absolute;   
+}
+
+.checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.checkbox-custom-label, .radio-custom-label {
+    position: relative;
+}
+
+.checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before {
+    content: '';
+    background: #fff;
+    border: 2px solid #ddd;
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+
+.radio-custom + .radio-custom-label:before {
+    border-radius: 50%;
+}
+
+.radio-custom:checked + .radio-custom-label:before {
+    background: #ccc;
+}
+
+
+.checkbox-custom:focus + .checkbox-custom-label, .radio-custom:focus + .radio-custom-label {
+  outline: 1px solid #ddd; /* focus style */
+}
+
+.image {
+	 position: relative; 
+   width: 100%; /* for IE 6 */
+}
+
+.headerOverImage { 
+   position: absolute; 
+   top: 200px; 
+   left: 0; 
+   width: 100%; 
+}
+
+.emptyList {
+	color: #E1DAC6;
+	font-size: 3em;
+	text-align: center;
+}

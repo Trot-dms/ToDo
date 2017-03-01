@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Task manager</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>
+    <script src="http://cdn.intercoolerjs.org/intercooler-1.1.0.min.js"></script>
+    <script th:src="@{js/application.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}"/>
+
+    <script>
+        $(document).ready(application.init);
+    </script>
+
+</head>
+<body>
+<!-- ALert on the page-->
+<div class="info shadow">
+    <table>
+        <tr>
+            <td width="100%">
+                To jest aplikacja demo, nie traktuj jej powaznie.
+            </td>
+            <td style="padding-right: 10px">
+                <img width="30px"
+                     src="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/Close-128.png">
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- Logo -->
+<div width="100%" class="logo">
+    <p>Task manager</p>
+</div>
+
+<!-- Add task form -->
+<form class="row" onsubmit="return false;" id="newTaskForm" style="line-height: 1em">
+    <h2>New task</h2>
+    <input name="taskName" required minlength="2" type="text"
+           placeholder="Name of task" class="medium"/>
+    <input name="taskDesc" required minlength="2" type="text"
+           placeholder="Desciption" class="long"/>
+    <select required>
+        <option th:each="c : ${categoryList}" th:value="${c.name}" th:text="${c.name}"></option>
+    </select>
+    <button class="button"><span>Add </span></button>
+</form>
+
+<!-- Task template -->
+<!--<div id="templateTask" class="task" style="visibility: none; display: inline-block;">
+		<span>
+			<input id="task%ID%" class="checkbox-custom" type="checkbox">
+	        <label class="medium checkbox-custom-label">%NAME%</label>
+		</span>
+    <div style="display: inline-block;">%DESC%</div>
+</div>
+-->
+
+<div id="templateTask" class="task" style="display: inline-block;">
+    <div th:each="t : ${todoList}">
+    <span>
+			<div th:id="${t.id}"><input class="checkbox-custom" type="checkbox">
+            </div>
+	        <label class="medium checkbox-custom-label" th:text="${t.title}" th:value="${t.title}">title</label>
+
+		</span>
+        <div style="display: inline-block;" th:text="${t.description}" th:value="${t.description}">description</div>
+    </div>
+
+</div>
+
+
+<!-- Tasks list -->
+<div class="row">
+    <h2>Your tasks:
+        <div th:text="${todoSize}" th:value="${todoSize}">4</div>
+    </h2>
+    <div id="taskContainer"></div>
+</div>
+
+</body>
+</html>

@@ -18,6 +18,7 @@ public class Mapper {
         TodoDTO dto = new TodoDTO();
         dto.setId(todo.getId());
         dto.setTitle(todo.getTitle());
+        dto.setDescription(todo.getDescription());
         dto.setCompleated(todo.isCompleated());
         dto.setCategory(todo.getCategory().getName());
         return dto;

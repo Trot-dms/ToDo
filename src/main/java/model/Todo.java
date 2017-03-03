@@ -19,7 +19,7 @@ public class Todo {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "desc")
+    @Column(name = "description")
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)

@@ -1,149 +1,146 @@
 var application = (function() {
 
-	var taskTemplate;
+    var taskTemplate;
 
-	function print(param) {
-		if (console && console.log) {
-			console.log(param);
-		}
-	}
+    function print(param) {
+        if (console && console.log) {
+            console.log(param);
+        }
+    }
+    var categories = [];
+    var tasks = [];
+    $.getJSON("/todos", function(data){
+        $.each(data, function(i, field){
+            console.log(i+" / "+field.id + " -> " + field.title);
+            tasks.push(field);
+        })
+    });
 
-	// var categories = {
-	// 	STUDY: "study",
-	// 	WORK: "work",
-	// 	PERSONAL: "personal"
-	// };
+    $.getJSON("/categories", function(data){
+        $.each(data, function(i, field){
+            categories.push(field.name);
+        })
+    });
 
-	// var tasks = [
-	// {
-	// 	name: "prezentacja",
-	// 	desc: "Zrobic prezentacje o jednorożcach i kotach na tęczy",
-	// 	isDone: false,
-	// 	category: categories.WORK
-	// }, {
-	// 	name: "zakupy w biedronce",
-	// 	desc: "mleko, kawa, cukier, reczeniki papierowe, kapusta, pomidory" + ",chleb, ziemniaki, kokosy, oliwa z oliwek hiszpanskich",
-	// 	isDone: false,
-	// 	category: categories.PERSONAL
-	// }, {
-	// 	name: "name2",
-	// 	desc: "desc2",
-	// 	isDone: true,
-	// 	category: categories.PERSONAL
-	// }, {
-	// 	name: "nauczyc sie jquery",
-	// 	desc: "Poznac podstawy biblioteki",
-	// 	isDone: false,
-	// 	category: categories.STUDY
-	// }
-	// ];
+    //var categories = {
+//		STUDY: "study",
+    //WORK: "work",
+    //PERSONAL: "personal"
+    //};
 
-	function shouldBeShowTask(index, task) {
-		return !task.isDone;
-	}
 
-	function addTask(index, el) {
-		var taskContent = $("#templateTask")
-			.html()
-			.replace("%NAME%", el.name)
-			.replace("%DESC%", el.desc)
-			.replace("%ID%", index);
+    function shouldBeShowTask(index, task) {
+        return !task.compleated;
+    }
 
-		$("#templateTask")
-			.clone()
-			.attr('id', 'task' + index)
-			.show()
-			.html(taskContent)
-			.appendTo("#taskContainer");
+    function addTask(index, el) {
 
-		$("#task" + index).on('click', doneTask);
-		$("#task" + index).addClass('category-' + el.category);
-	}
+        var taskContent = $("#templateTask")
+            .html()
+            .replace("%NAME%", el.title)
+            .replace("%DESC%", el.description)
+            .replace("%ID%", index);
 
-	function closeInfoBox() {
-		$(".info").slideUp("fast");
-	}
+        $("#templateTask")
+            .clone()
+            .attr('id', 'task' + index)
+            .show()
+            .html(taskContent)
+            .appendTo("#taskContainer");
 
-	function newTask() {
-		var desc = $("#newTaskForm [name='taskDesc']");
-		var name = $("#newTaskForm [name='taskName']");
-		var category = $("#newTaskForm select option:selected");
+        $("#task" + index).on('click', doneTask);
+        $("#task" + index).addClass('category-' + el.category);
+    }
 
-		$("#newTaskForm").validate({
-			errorPlacement: function(error, element) {
-				return true;
-			}
-		});
+    function closeInfoBox() {
+        $(".info").slideUp("fast");
+    }
 
-		desc.toggleClass('errorField', !desc.valid());
-		name.toggleClass('errorField', !name.valid());
-		$("#newTaskForm select").toggleClass('errorField', category.val() == "");
+    function newTask() {
+        var description = $("#newTaskForm [name='taskDesc']");
+        var name = $("#newTaskForm [name='taskName']");
+        var category = $("#newTaskForm select option:selected");
 
-		print(category.text());
+        $("#newTaskForm").validate({
+            errorPlacement: function(error, element) {
+                return true;
+            }
+        });
 
-		if (!desc.valid() || !name.valid() || category.val() == "") {
-			return;
-		}
+        description.toggleClass('errorField', !description.valid());
+        name.toggleClass('errorField', !name.valid());
+        $("#newTaskForm select").toggleClass('errorField', category.val() == "");
 
-		if ($("input[id*='task']").length == 1) {
-			$("#taskContainer").html("");
-		}
+        print(category.text());
 
-		var newTask = {
-			name: name.val(),
-			desc: desc.val(),
-			isDone: false,
-			category: categories[Object.keys(categories)[category.val()]]
-		};
-		addTask($(".row .task").length, newTask);
-		print("Size of tasks:"+tasks.length);
+        if (!description.valid() || !name.valid() || category.val() == "") {
+            return;
+        }
 
-		desc.val('');
-		name.val('');
-	}
+        if ($("input[id*='task']").length == 1) {
+            $("#taskContainer").html("");
+        }
 
-	var init = function() {
-		$(".info")
-			.hide()
-			.fadeIn();
+        var newTask = {
+            title: name.val(),
+            description: description.val(),
+            compleated: false,
+            category: categories[Object.keys(categories)[category.val()]]
+        };
+        addTask($(".row .task").length, newTask);
+        print("Size of tasks:"+tasks.length);
 
-		$("td > img").click(closeInfoBox);
-		// $("#templateTask").hide();
-		// $(tasks)
-		// 	.filter(shouldBeShowTask)
-		// 	.each(addTask);
-        //
-        // $("#newTaskForm button").click(newTask);
-        //
-        // $(Object.keys(categories)).each(function(val, text) {
-			// console.log(text);
-			// $("form select").append(
-			// 	$('<option></option>').val(val).html(categories[text])
-			// );
-		// });
-	}
+        description.val('');
+        name.val('');
+    }
 
-	var doneTask = function(param) {
-		$(param.currentTarget).find(".checkbox-custom").prop("checked", true)
+    var init = function() {
 
-		setTimeout(function() {
-			$(param.currentTarget).slideUp(400, function() {
-				$(param.currentTarget).remove();
-				checkTasksSize();
-			})
-		}, 50);
-	}
+        $(".info")
+            .hide()
+            .fadeIn();
 
-	function checkTasksSize() {
-		if ($("input[id*='task']").length == 1) {
-			$("#taskContainer")
-				.html("<p class='emptyList'>You don\'t have tasks</p>");
-		}
-	}
+        $("td > img").click(closeInfoBox);
+        $("#templateTask").hide();
+        $(tasks)
+            .filter(shouldBeShowTask)
+            .each(addTask);
 
-	return {
-		init: init,
-		doneTask: doneTask
-	}
+        //console.log("Adding tasks...");
+        //$.each(tasks, addTask);
+        //console.log("Done...");
+
+        $("#newTaskForm button").click(newTask);
+
+        $(Object.keys(categories)).each(function(val, text) {
+            console.log(text);
+            $("form select").append(
+                $('<option></option>').val(val).html(categories[text])
+            );
+        });
+    }
+
+    var doneTask = function(param) {
+        $(param.currentTarget).find(".checkbox-custom").prop("checked", true)
+
+        setTimeout(function() {
+            $(param.currentTarget).slideUp(400, function() {
+                $(param.currentTarget).remove();
+                checkTasksSize();
+            })
+        }, 50);
+    }
+
+    function checkTasksSize() {
+        if ($("input[id*='task']").length == 1) {
+            $("#taskContainer")
+                .html("<p class='emptyList'>You don\'t have tasks</p>");
+        }
+    }
+
+    return {
+        init: init,
+        doneTask: doneTask
+    }
 
 })()

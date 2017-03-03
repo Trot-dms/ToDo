@@ -36,21 +36,20 @@ public class Application {
         // Setup database
         service.setupDB();
 
-        get("/", (req, res) -> renderTodo(req));
-
         get("/categories", (req, res) -> {
             res.type("application/json");
             return service.getAllCategories();
         }, jsonTransformer);
 
-        get("/cat/name/:name", service::getCategoryByName, jsonTransformer);
-
-        get("/cat/:id", service::getCategoryById, jsonTransformer);
-
         get("/todos" ,(req, res) -> {
             res.type("application/json");
             return service.getAllTodos();
         }, jsonTransformer);
+
+        get("/cat/name/:name", service::getCategoryByName, jsonTransformer);
+        get("/cat/:id", service::getCategoryById, jsonTransformer);
+
+        post("/todo", service::createTodo);
 
 //        get("/task/:id", (req, res) -> todoDAO.findById(Integer.parseInt(req.params("id"))).get(), jsonTransformer);
     }

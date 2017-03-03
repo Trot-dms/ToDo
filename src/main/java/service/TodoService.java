@@ -8,6 +8,7 @@ import dto.CategoryDTO;
 import dto.Mapper;
 import dto.TodoDTO;
 import model.Category;
+import model.Todo;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
@@ -58,6 +59,20 @@ public class TodoService {
         setJsonResponse(res);
         int id = Integer.parseInt(req.params("id"));
         return checkCategoryFromQuery(categoryDAO.findById(id));
+    }
+
+    public String createTodo(Request req, Response response) {
+        String title = req.params("taskName");
+        String description = req.params("taskDesc");
+        String category = req.params("category");
+
+        Todo todo = new Todo();
+        todo.setTitle(title);
+        todo.setDescription(description);
+        todo.setCategory(categoryDAO.findByName(category).get());
+
+        todoDAO.create(todo);
+        return req.body();
     }
 
     public void setupDB() {

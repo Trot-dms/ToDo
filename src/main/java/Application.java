@@ -1,15 +1,7 @@
 import dao.TodoDAOImpl;
-import dto.TodoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.TodoService;
-import spark.ModelAndView;
-import spark.Request;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static spark.Spark.*;
 
@@ -36,12 +28,15 @@ public class Application {
         // Setup database
         service.setupDB();
 
+        get("/", (req, res) -> {
+            return "index.html";
+        });
         get("/categories", (req, res) -> {
             res.type("application/json");
             return service.getAllCategories();
         }, jsonTransformer);
 
-        get("/todos" ,(req, res) -> {
+        get("/todos", (req, res) -> {
             res.type("application/json");
             return service.getAllTodos();
         }, jsonTransformer);
@@ -54,16 +49,4 @@ public class Application {
 //        get("/task/:id", (req, res) -> todoDAO.findById(Integer.parseInt(req.params("id"))).get(), jsonTransformer);
     }
 
-    private static String renderTodo(Request request) {
-        Map<String, Object> model = new HashMap<>();
-        List<TodoDTO> todoList = service.getAllTodos();
-        model.put("todoList", todoList);
-        model.put("todoSize", todoList.size());
-        model.put("categoryList", service.getAllCategories());
-        return renderTemplate("index", model);
-    }
-
-    private static String renderTemplate(String template, Map model) {
-        return new ThymeleafTemplateEngine().render(new ModelAndView(model, template));
-    }
 }

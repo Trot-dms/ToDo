@@ -1,5 +1,6 @@
 package service;
 
+import com.google.gson.Gson;
 import dao.CategoryDAO;
 import dao.CategoryDAOImpl;
 import dao.TodoDAO;
@@ -8,7 +9,6 @@ import dto.CategoryDTO;
 import dto.Mapper;
 import dto.TodoDTO;
 import model.Category;
-import model.Todo;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
@@ -62,17 +62,20 @@ public class TodoService {
     }
 
     public String createTodo(Request req, Response response) {
-        String title = req.params("taskName");
-        String description = req.params("taskDesc");
+        String body = req.body();
+        String title = req.attribute("taskName");
+        String description = req.attribute("taskDesc");
         String category = req.params("category");
+//
+//        Todo todo = new Todo();
+//        todo.setTitle(title);
+//        todo.setDescription(description);
+//        todo.setCategory(categoryDAO.findByName(category).get());
+//
+//        todoDAO.create(todo);
+//        return req.body();
 
-        Todo todo = new Todo();
-        todo.setTitle(title);
-        todo.setDescription(description);
-        todo.setCategory(categoryDAO.findByName(category).get());
-
-        todoDAO.create(todo);
-        return req.body();
+        return body;
     }
 
     public void setupDB() {

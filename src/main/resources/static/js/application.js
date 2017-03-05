@@ -90,6 +90,17 @@ var application = (function() {
         addTask($(".row .task").length, newTask);
         print("Size of tasks:"+tasks.length);
 
+        //Post task to DB
+        $.ajax({
+            url: '/todo',
+            type: 'post',
+            dataType: 'application/json',
+            data: $('form#newTaskForm').serialize(),
+            success: function(data) {
+                console.log("Send POST to service -> " + data);
+            }
+        });
+
         description.val('');
         name.val('');
     }

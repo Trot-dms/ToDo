@@ -35,19 +35,7 @@
 </div>
 
 <!-- Add task form -->
-<form class="row" onsubmit="function addNew() {
-	$.ajax({
-    type: 'POST',
-    url: '/todo',
-//    data: JSON.stringify({ Markers: markers }),
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json',
-//    success: function(data){alert(data);},
-//    failure: function(errMsg) {
-//    alert(errMsg);
-    })
-    };"
-      id="newTaskForm" style="line-height: 1em">
+<form class="row" onsubmit="return false;" id="newTaskForm" style="line-height: 1em">
     <h2>New task</h2>
     <input name="taskName" required minlength="2" type="text"
            placeholder="Name of task" class="medium"/>
